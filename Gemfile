@@ -34,3 +34,10 @@ group :development, :test do
   gem 'spring'
 end
 
+
+# problem with angular rails templates and sprockets - update to 2.12.3
+gem 'sprockets', '2.12.3'
+
+# angular rails templates
+gem 'angular-rails-templates'
+
