@@ -13,17 +13,24 @@ angular.module('flapperNews', ['ui.router', 'templates'])
             url: '/home',
             templateUrl: 'home/_home.html',
             controller: 'MainCtrl',
+// with resolve property of ui-router we are ensuring that anytime our home state is entered, we will automatically query all posts from our backend before the state actually finishes loading.
             resolve: {
                 postPromise: ['posts', function(posts){
                   return posts.getAll();
                 }]
-              }          
+              };         
           })
- // Post page - add a state where an individual post can be accessed
+// Post page - add a state where an individual post can be accessed
           .state('posts', {
             url: '/posts/{id}',
             templateUrl: 'posts/_posts.html',
-            controller: 'PostsCtrl'
+            controller: 'PostsCtrl',
+//  detects we are entering the posts state and will then automatically query the server for the full post object, including comments
+            resolve: {
+                post: ['$stateParams', 'posts', function($stateParams, posts) {
+                  return posts.get($stateParams.id);
+                }]
+              }  
           });
       
          $urlRouterProvider.otherwise('home');
