@@ -8,20 +8,25 @@ angular.module('flapperNews', ['ui.router', 'templates'])
       '$urlRouterProvider',
       function($stateProvider, $urlRouterProvider) {
       
-        $stateProvider
+         $stateProvider
           .state('home', {
             url: '/home',
             templateUrl: 'home/_home.html',
-            controller: 'MainCtrl'
+            controller: 'MainCtrl',
+            resolve: {
+                postPromise: ['posts', function(posts){
+                  return posts.getAll();
+                }]
+              }          
           })
  // Post page - add a state where an individual post can be accessed
-           .state('posts', {
+          .state('posts', {
             url: '/posts/{id}',
             templateUrl: 'posts/_posts.html',
             controller: 'PostsCtrl'
           });
       
-        $urlRouterProvider.otherwise('home');
+         $urlRouterProvider.otherwise('home');
 
     }]);
 

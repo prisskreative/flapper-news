@@ -44,3 +44,15 @@ gem 'angular-rails-templates'
 # Let's start adding actions to our controllers. We'll be using the respond_with method in our actions to return json to our endpoints.
 gem 'responders'
 
+#With this gem Rails automatically send the cookie to Angular and also validate the header when Angular is submitting data
+gem 'angular_rails_csrf'
+
+
+
+
+
+
+
+
+
+

@@ -29,15 +29,10 @@ angular.module('flapperNews')
    $scope.addPost = function(){
    	// prevent user from submitting blank title
    	if(!$scope.title || $scope.title === '') { return; } 
-    $scope.posts.push({
+   	// post.create to save posts to the server
+    posts.create({
     	title: $scope.title,
-    	link: $scope.link,
-    	upvotes: 0,
-    // Add Fake comment data
-        comments: [
-           {author: 'Joe', body: 'Cool post!', upvotes: 0},
-           {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
-        ]       
+    	link: $scope.link,  
     });
     $scope.title = ''; // prevent blank title
     $scope.link = ''; // prevent blank link
@@ -47,7 +42,7 @@ angular.module('flapperNews')
    // passing current instance of post to function
 
    $scope.incrementUpvotes = function(post) {
-      post.upvotes += 1;
+      posts.upvote(post);
    };
 
 }]);

@@ -1,13 +1,44 @@
  angular.module('flapperNews')
  // angular services
-    .factory('posts', [function(){
-  // service body
-  // by exporting an object that contains the posts array we can add new objects and methods to our services in the future
-  // What we're doing here is creating a new object that has an array property called 'posts'. 
-  // We then return that variable so that our o object essentially becomes exposed to any other Angular module that cares to inject it.
-      var o = {
-         posts: []
-      };
-      return o;
+ // Inject the $http service:
+    .factory('posts', [
+    '$http',
+      function($http){
+         var o = {
+            posts: []
+         };
+      
+  // get all posts in the service within posts.js
+      o.getAll = function() {
+        return $http.get('/posts.json').success(function(data){
+      angular.copy(data, o.posts);
+    });
+  }
+
+  // Add method Create new posts
+      o.create = function(post) {
+        return $http.post('/posts.json', post).success(function(data){
+          o.posts.push(data);
+    });
+  }
+
+  // Add another method to our service
+      o.upvote = function(post) {
+        return $http.put('/posts/' + post.id + '/upvote.json')
+          .success(function(data){
+            post.upvotes += 1;
+          });
+  }
+
+  // Add method to retrieve a single post from our server
+      o.get = function(id) {
+        return $http.get('/posts/' + id + '.json').then(function(res){
+          return res.data;
+        });
+  };      
+
+return o;
+
 }]);
+
 
