@@ -18,7 +18,7 @@ angular.module('flapperNews', ['ui.router', 'templates'])
                 postPromise: ['posts', function(posts){
                   return posts.getAll();
                 }]
-              };         
+              }         
           })
 // Post page - add a state where an individual post can be accessed
           .state('posts', {
