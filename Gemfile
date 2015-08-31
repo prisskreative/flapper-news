@@ -41,3 +41,6 @@ gem 'sprockets', '2.12.3'
 # angular rails templates
 gem 'angular-rails-templates'
 
+# Let's start adding actions to our controllers. We'll be using the respond_with method in our actions to return json to our endpoints.
+gem 'responders'
+
